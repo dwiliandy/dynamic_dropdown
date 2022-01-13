@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $category = App\Models\Category::all();
+    return view('welcome',['category' => $category]);
+});
+
+Route::get('getCourse/{id}', function ($id) {
+    $course = App\Models\Course::where('category_id',$id)->get();
+    return response()->json($course);
 });
